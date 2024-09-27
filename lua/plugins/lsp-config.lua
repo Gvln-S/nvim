@@ -34,6 +34,9 @@ return {
           return lspconfig.util.root_pattern('pom.xml', 'build.gradle', '.git')(fname) or vim.fn.getcwd()
         end,
         cmd = {'C:\\Users\\santi\\AppData\\Local\\nvim-data\\mason\\bin\\jdtls.CMD'},
+        on_attach = function(client, bufnr)
+          client.resolved_capabilities.document_formatting = false 
+        end,
       })
       lspconfig.ts_ls.setup({
         capabilities = capabilities
@@ -45,7 +48,12 @@ return {
         capabilities = capabilities
       })
       lspconfig.ast_grep.setup({
-        capabilities = capabilities
+        capabilities = capabilities,
+        on_attach = function(client, bufnr)
+          if vim.bo.filetype == "java" then
+            client.stop()
+          end
+        end,
       })
 
       vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
