@@ -38,6 +38,16 @@ return {
           client.resolved_capabilities.document_formatting = false 
         end,
       })
+      lspconfig.kotlin_language_server.setup({
+        capabilities = capabilities,
+        root_dir = function(fname)
+          return lspconfig.util.root_pattern('build.gradle.kts', 'settings.gradle.kts', '.git')(fname) or vim.fn.getcwd()
+        end,
+        cmd = {'C:\\Users\\santi\\AppData\\Local\\nvim-data\\mason\\bin\\kotlin-language-server.CMD'},
+        on_attach = function(client, bufnr)
+          client.resolved_capabilities.document_formatting = false 
+        end,
+      })
       lspconfig.ts_ls.setup({
         capabilities = capabilities
       })
@@ -47,12 +57,25 @@ return {
       lspconfig.lua_ls.setup({
         capabilities = capabilities
       })
+      lspconfig.lemminx.setup({
+        capabilities = capabilities
+      })
+      lspconfig.gradle_ls.setup({
+        capabilities = capabilities
+      })
+      lspconfig.css_variables.setup({
+        capabilities = capabilities
+      })
       lspconfig.ast_grep.setup({
         capabilities = capabilities,
         on_attach = function(client, bufnr)
           if vim.bo.filetype == "java" then
             client.stop()
           end
+          if vim.bo.filetype == "kts" then
+            client.stop()
+          end
+
         end,
       })
 
