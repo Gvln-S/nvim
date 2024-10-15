@@ -11,17 +11,14 @@ return {
           additional_vim_regex_highlighting = true,
         },
         indent = { enable = true },
-        -- for start of {}
-        rainbow = {
-          enable = true,
-          extended_mode = true,
-          max_file_lines = nil,
-        },
       })
     end
   },
   {
-    'p00f/nvim-ts-rainbow',
-  },
+    'andymass/vim-matchup',
+    config = function()
+      vim.g.matchup_matchparen_offscreen = { method = 'popup' }
+    end
+  }
 }
 
