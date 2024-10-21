@@ -1,4 +1,4 @@
-# commitlint for no mandatory commits test)
+# commitlint for no mandatory commits 
 .husky/
 node_modules/
 commitlint.config.js
