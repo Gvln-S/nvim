@@ -55,7 +55,23 @@ return {
         capabilities = capabilities
       })
       lspconfig.lua_ls.setup({
-        capabilities = capabilities
+        capabilities = capabilities,
+        settings = {
+          Lua = {
+            runtime = {
+              version = '5.1.5', 
+            },
+            diagnostics = {
+              globals = { "vim" },
+            },
+            workspace = {
+              library = vim.api.nvim_get_runtime_file("", true),
+            },
+            telemetry = {
+              enable = false,
+            },
+          },
+        },
       })
       lspconfig.lemminx.setup({
         capabilities = capabilities
