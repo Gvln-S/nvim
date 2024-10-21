@@ -4,6 +4,7 @@ node_modules/
 commitlint.config.js
 package-lock.json
 package.json
+CHANGELOG.md
 
 # Ignore Gradle project-specific cache directory
 .gradle
