@@ -1,4 +1,4 @@
-# commitlint for not mandatory commits
+# commitlint for not mandatory commits only local
 .husky/
 node_modules/
 CHANGELOG.md
