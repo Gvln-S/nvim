@@ -5,7 +5,7 @@ return {
     config = function()
       require("mason").setup({
          ui = {
-        border = "rounded" 
+        border = "rounded"
     }
       })
     end,
@@ -15,7 +15,7 @@ return {
     lazy = false,
     config = function()
       require("mason-lspconfig").setup({
-      }) 
+      })
     end,
     opts = {
       auto_install = true,
@@ -27,7 +27,6 @@ return {
     config = function()
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
       local lspconfig = require("lspconfig")
-
       lspconfig.jdtls.setup({
         capabilities = capabilities,
         root_dir = function(fname)
@@ -35,7 +34,7 @@ return {
         end,
         cmd = {'C:\\Users\\santi\\AppData\\Local\\nvim-data\\mason\\bin\\jdtls.CMD'},
         on_attach = function(client, bufnr)
-          client.resolved_capabilities.document_formatting = false 
+          client.server_capabilities.documentFormattingProvider = false
         end,
       })
       lspconfig.kotlin_language_server.setup({
@@ -45,7 +44,7 @@ return {
         end,
         cmd = {'C:\\Users\\santi\\AppData\\Local\\nvim-data\\mason\\bin\\kotlin-language-server.CMD'},
         on_attach = function(client, bufnr)
-          client.resolved_capabilities.document_formatting = false 
+          client.resolved_capabilities.document_formatting = false
         end,
       })
       lspconfig.ts_ls.setup({
@@ -59,7 +58,7 @@ return {
         settings = {
           Lua = {
             runtime = {
-              version = '5.1.5', 
+              version = '5.1.5',
             },
             diagnostics = {
               globals = { "vim" },
