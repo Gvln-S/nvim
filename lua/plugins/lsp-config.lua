@@ -46,17 +46,21 @@ return {
       "mfussenegger/nvim-jdtls",
     },
     config = function()
-      local lspconfig = require("lspconfig")
-      local capabilities = require('cmp_nvim_lsp').default_capabilities()
+			local lspconfig = require("lspconfig")
+			local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+			vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+			vim.lsp.handlers.hover, {
+				border = "rounded"
+			}
+			)
 
       local default_config = {
         capabilities = capabilities,
         on_attach = function(client, bufnr)
 
 					local opts = { noremap = true, silent = true, buffer = bufnr }
-					vim.keymap.set("n", "K", function()
-						vim.lsp.buf.hover({ border = "rounded" })
-					end, opts)
+					vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
 					vim.keymap.set("n", "<leader>df", vim.lsp.buf.definition, opts)
 					vim.keymap.set("n", "<leader>rf", vim.lsp.buf.references, opts)
           vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)

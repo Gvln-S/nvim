@@ -3,11 +3,9 @@ if not status then
   return
 end
 
--- Ajusta estas rutas según tu sistema
 local home = vim.fn.expand('$USERPROFILE')
 local workspace_path = home .. '\\AppData\\Local\\nvim-data\\workspace\\' .. vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
 
--- Encuentra el directorio raíz del proyecto
 local root_markers = { ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" }
 local root_dir = require("jdtls.setup").find_root(root_markers)
 if root_dir == "" then
@@ -16,7 +14,6 @@ end
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
--- Ajusta la ruta del jar y la configuración según tu instalación de Mason
 local mason_path = vim.fn.expand('$USERPROFILE') .. '\\AppData\\Local\\nvim-data\\mason'
 local config = {
   capabilities = capabilities,
@@ -82,14 +79,11 @@ local config = {
     },
   },
   on_attach = function(client, bufnr)
-    -- Keymaps específicos para Java
     local opts = { noremap = true, silent = true, buffer = bufnr }
     vim.keymap.set("n", "<leader>oi", jdtls.organize_imports, opts)
     vim.keymap.set("n", "<leader>ev", jdtls.extract_variable, opts)
     vim.keymap.set("n", "<leader>ec", jdtls.extract_constant, opts)
     vim.keymap.set("v", "<leader>em", [[<ESC><CMD>lua require('jdtls').extract_method(true)<CR>]], opts)
-    
-    -- Keymaps generales de LSP
     vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
     vim.keymap.set("n", "<leader>df", vim.lsp.buf.definition, opts)
     vim.keymap.set("n", "<leader>rf", vim.lsp.buf.references, opts)
@@ -98,5 +92,4 @@ local config = {
   end,
 }
 
--- Iniciar el servidor
 jdtls.start_or_attach(config)
