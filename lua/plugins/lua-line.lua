@@ -6,9 +6,9 @@ return {
         theme = 'dracula'
       },
       sections = {
-        lualine_b = {'branch', 'diff', git_status},
+        lualine_b = {'branch', 'diff', 'git_status'},
       }
-    }) 
+    })
   end
 }
 

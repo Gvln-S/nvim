@@ -4,7 +4,7 @@ return {
   event = 'VimEnter',
   config = function()
     require('dashboard').setup {
-      theme = "doom", 
+      theme = "doom",
       config = {
         header = {
           '',
@@ -26,7 +26,7 @@ return {
             icon = '',
             desc = 'Telescope file browser',
             key = 'Space F F',
-            key_format = ' [%s]', 
+            key_format = ' [%s]',
             action = ':Telescope find_files',
           },
           {
@@ -39,7 +39,7 @@ return {
           {
             icon = '',
             desc = 'Telescope recent files',
-            key = 'Space R F', 
+            key = 'Space R F',
             key_format = ' [%s]',
             action = ':Telescope oldfiles',
           },
@@ -64,6 +64,5 @@ return {
     }
   end,
   dependencies = { {'nvim-tree/nvim-web-devicons'}}
-
 }
 

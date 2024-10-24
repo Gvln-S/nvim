@@ -4,102 +4,118 @@ return {
     lazy = false,
     config = function()
       require("mason").setup({
-         ui = {
-        border = "rounded"
-    }
+        ui = {
+          border = "rounded",
+          icons = {
+            package_installed = "✓",
+            package_pending = "➜",
+            package_uninstalled = "✗"
+          }
+        }
       })
     end,
   },
   {
     "williamboman/mason-lspconfig.nvim",
     lazy = false,
-    config = function()
-      require("mason-lspconfig").setup({
-      })
-    end,
     opts = {
-      auto_install = true,
+      ensure_installed = {
+        "jdtls",
+        "lua_ls",
+        "ts_ls",
+        "html",
+        "cssls",
+        "kotlin_language_server",
+        "lemminx",
+        "gradle_ls",
+        "bashls",
+        "marksman",
+      },
+      automatic_installation = true,
     },
   },
   {
+    "mfussenegger/nvim-jdtls",
+    ft = "java",
+  },
+  {
     "neovim/nvim-lspconfig",
-    lazy = false,
+    event = { "BufReadPre", "BufNewFile" },
+    dependencies = {
+      "hrsh7th/cmp-nvim-lsp",
+      "mfussenegger/nvim-jdtls",
+    },
     config = function()
-      local capabilities = require('cmp_nvim_lsp').default_capabilities()
       local lspconfig = require("lspconfig")
-      lspconfig.jdtls.setup({
+      local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+      local default_config = {
         capabilities = capabilities,
-        root_dir = function(fname)
-          return lspconfig.util.root_pattern('pom.xml', 'build.gradle', '.git')(fname) or vim.fn.getcwd()
-        end,
-        cmd = {'C:\\Users\\santi\\AppData\\Local\\nvim-data\\mason\\bin\\jdtls.CMD'},
         on_attach = function(client, bufnr)
-          client.server_capabilities.documentFormattingProvider = false
-        end,
-      })
-      lspconfig.kotlin_language_server.setup({
-        capabilities = capabilities,
-        root_dir = function(fname)
-          return lspconfig.util.root_pattern('build.gradle.kts', 'settings.gradle.kts', '.git')(fname) or vim.fn.getcwd()
-        end,
-        cmd = {'C:\\Users\\santi\\AppData\\Local\\nvim-data\\mason\\bin\\kotlin-language-server.CMD'},
-        on_attach = function(client, bufnr)
-          client.resolved_capabilities.document_formatting = false
-        end,
-      })
-      lspconfig.ts_ls.setup({
-        capabilities = capabilities
-      })
-      lspconfig.html.setup({
-        capabilities = capabilities
-      })
-      lspconfig.lua_ls.setup({
-        capabilities = capabilities,
+
+					local opts = { noremap = true, silent = true, buffer = bufnr }
+					vim.keymap.set("n", "K", function()
+						vim.lsp.buf.hover({ border = "rounded" })
+					end, opts)
+					vim.keymap.set("n", "<leader>df", vim.lsp.buf.definition, opts)
+					vim.keymap.set("n", "<leader>rf", vim.lsp.buf.references, opts)
+          vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+          vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+          vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts)
+          vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
+          vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
+
+          if client.name ~= "null-ls" then
+            client.server_capabilities.documentFormattingProvider = false
+          end
+        end
+      }
+
+      -- Configuración específica para Lua
+      lspconfig.lua_ls.setup(vim.tbl_deep_extend("force", default_config, {
         settings = {
           Lua = {
-            runtime = {
-              version = '5.1.5',
-            },
-            diagnostics = {
-              globals = { "vim" },
-            },
+            runtime = { version = 'LuaJIT' },
+            diagnostics = { globals = { "vim" } },
             workspace = {
               library = vim.api.nvim_get_runtime_file("", true),
+              checkThirdParty = false,
             },
-            telemetry = {
-              enable = false,
-            },
+            telemetry = { enable = false },
           },
         },
-      })
-      lspconfig.lemminx.setup({
-        capabilities = capabilities
-      })
-      lspconfig.gradle_ls.setup({
-        capabilities = capabilities
-      })
-      lspconfig.css_variables.setup({
-        capabilities = capabilities
-      })
-      lspconfig.ast_grep.setup({
-        capabilities = capabilities,
-        on_attach = function(client, bufnr)
-          if vim.bo.filetype == "java" then
-            client.stop()
-          end
-          if vim.bo.filetype == "kts" then
-            client.stop()
-          end
+      }))
 
+      lspconfig.ts_ls.setup(default_config)
+      lspconfig.html.setup(default_config)
+      lspconfig.cssls.setup(default_config)
+      lspconfig.lemminx.setup(default_config)
+      lspconfig.gradle_ls.setup(default_config)
+
+      lspconfig.kotlin_language_server.setup(vim.tbl_deep_extend("force", default_config, {
+        root_dir = function(fname)
+          return lspconfig.util.root_pattern('build.gradle.kts', 'settings.gradle.kts', '.git')(fname) 
+            or vim.fn.getcwd()
         end,
+      }))
+
+      lspconfig.bashls.setup(default_config)
+      lspconfig.marksman.setup(default_config)
+
+      vim.diagnostic.config({
+        virtual_text = {
+          prefix = '●',
+          source = "always",
+        },
+        float = {
+          source = "always",
+          border = "rounded",
+        },
+        signs = true,
+        underline = true,
+        update_in_insert = false,
+        severity_sort = true,
       })
-
-      vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
-      vim.keymap.set("n", "<leader>df", vim.lsp.buf.definition, {})
-      vim.keymap.set("n", "<leader>rf", vim.lsp.buf.references, {})
-      vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, {})
-
     end,
   },
 }
-
