@@ -53,10 +53,12 @@ return {
         capabilities = capabilities,
         on_attach = function(client, bufnr)
 
-          local opts = { noremap = true, silent = true, buffer = bufnr }
-          vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-          vim.keymap.set("n", "<leader>df", vim.lsp.buf.definition, opts)
-          vim.keymap.set("n", "<leader>rf", vim.lsp.buf.references, opts)
+					local opts = { noremap = true, silent = true, buffer = bufnr }
+					vim.keymap.set("n", "K", function()
+						vim.lsp.buf.hover({ border = "rounded" })
+					end, opts)
+					vim.keymap.set("n", "<leader>df", vim.lsp.buf.definition, opts)
+					vim.keymap.set("n", "<leader>rf", vim.lsp.buf.references, opts)
           vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
           vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
           vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts)
