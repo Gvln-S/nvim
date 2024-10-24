@@ -1,9 +1,9 @@
 return {
   'nvim-neo-tree/neo-tree.nvim',
-  branch = 'v3.x', 
+  branch = 'v3.x',
     dependencies = {
     'nvim-lua/plenary.nvim',
-    'MunifTanjim/nui.nvim', 
+    'MunifTanjim/nui.nvim',
     'nvim-tree/nvim-web-devicons',
   },
   config = function()
@@ -24,10 +24,7 @@ return {
     })
 
     vim.keymap.set('n', '<leader>m', ':Neotree reveal left<CR>', {})
-    vim.keymap.set('n', '<leader>n', ':Neotree close<CR>', {}) 
+    vim.keymap.set('n', '<leader>n', ':Neotree close<CR>', {})
     end
 }
-
-
- 
 

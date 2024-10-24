@@ -27,7 +27,8 @@ require("lazy").setup({
   checker = { enabled = true },
 })
 
-require("vim-options")
+require("core.keymaps")
+require("core.vim-options")
 require("mason").setup()
 
 
