@@ -16,4 +16,12 @@ return {
     vim.keymap.set('n', '<leader>gc', ':Gitsigns preview_hunk<CR>', {})
     vim.keymap.set('n', '<leader>gt', ':Gitsigns toggle_current_line_blame<CR>', {})
   end,
+  {
+    'f-person/git-blame.nvim',
+    opts = {
+      enabled = false,
+      date_format = '%y/%m/%d %H:%M:%S',
+    },
+    vim.keymap.set("n", "<leader>gb", ":GitBlameToggle<CR>")
+  }
 }

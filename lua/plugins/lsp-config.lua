@@ -20,6 +20,7 @@ return {
     lazy = false,
     opts = {
       ensure_installed = {
+        "clangd",
         "jdtls",
         "lua_ls",
         "ts_ls",
@@ -90,6 +91,7 @@ return {
         },
       }))
 
+      lspconfig.clangd.setup(default_config)
       lspconfig.ts_ls.setup(default_config)
       lspconfig.html.setup(default_config)
       lspconfig.cssls.setup(default_config)
@@ -98,7 +100,7 @@ return {
 
       lspconfig.kotlin_language_server.setup(vim.tbl_deep_extend("force", default_config, {
         root_dir = function(fname)
-          return lspconfig.util.root_pattern('build.gradle.kts', 'settings.gradle.kts', '.git')(fname) 
+          return lspconfig.util.root_pattern('build.gradle.kts', 'settings.gradle.kts', '.git')(fname)
             or vim.fn.getcwd()
         end,
       }))
