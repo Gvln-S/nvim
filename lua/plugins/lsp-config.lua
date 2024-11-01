@@ -76,7 +76,6 @@ return {
         end
       }
 
-      -- Configuración específica para Lua
       lspconfig.lua_ls.setup(vim.tbl_deep_extend("force", default_config, {
         settings = {
           Lua = {
@@ -91,7 +90,22 @@ return {
         },
       }))
 
-      lspconfig.clangd.setup(default_config)
+      lspconfig.clangd.setup(vim.tbl_deep_extend("force", default_config, {
+        cmd = {
+          "clangd",
+          "--background-index",
+          "--clang-tidy",
+          "--header-insertion=iwyu",
+          "--completion-style=detailed",
+          "--function-arg-placeholders",
+          "--fallback-style=llvm",
+          "--query-driver=C:/ProgramData/mingw64/mingw64/bin/g++*",
+        },
+        capabilities = vim.tbl_deep_extend("force", capabilities, {
+          offsetEncoding = { "utf-16" },
+        }),
+      }))
+
       lspconfig.ts_ls.setup(default_config)
       lspconfig.html.setup(default_config)
       lspconfig.cssls.setup(default_config)

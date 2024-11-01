@@ -32,3 +32,6 @@ require("core.vim-options")
 require("mason").setup()
 
 
+-- use for c++ compiler clang++
+local path = vim.fn.expand('$PATH')
+vim.fn.setenv('PATH', path .. ';C:\\Program Files\\LLVM\\bin')
