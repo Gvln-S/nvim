@@ -31,6 +31,7 @@ return {
         "gradle_ls",
         "bashls",
         "marksman",
+        "pyright",
       },
       automatic_installation = true,
     },
@@ -106,12 +107,6 @@ return {
         }),
       }))
 
-      lspconfig.ts_ls.setup(default_config)
-      lspconfig.html.setup(default_config)
-      lspconfig.cssls.setup(default_config)
-      lspconfig.lemminx.setup(default_config)
-      lspconfig.gradle_ls.setup(default_config)
-
       lspconfig.kotlin_language_server.setup(vim.tbl_deep_extend("force", default_config, {
         root_dir = function(fname)
           return lspconfig.util.root_pattern('build.gradle.kts', 'settings.gradle.kts', '.git')(fname)
@@ -119,6 +114,12 @@ return {
         end,
       }))
 
+      lspconfig.ts_ls.setup(default_config)
+      lspconfig.html.setup(default_config)
+      lspconfig.cssls.setup(default_config)
+      lspconfig.lemminx.setup(default_config)
+      lspconfig.gradle_ls.setup(default_config)
+      lspconfig.pyright.setup(default_config)
       lspconfig.bashls.setup(default_config)
       lspconfig.marksman.setup(default_config)
 
