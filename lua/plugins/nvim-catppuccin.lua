@@ -7,7 +7,7 @@ return {
 		require('catppuccin').setup({
 			transparent_background = true,
 			integrations = {
-				cmp = true,
+        cmp = true,
 				treesitter = true,
 				lsp_saga = true,
 				gitsigns = true,

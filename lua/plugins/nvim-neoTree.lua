@@ -15,10 +15,10 @@ return {
       filesystem = {
         filtered_items = {
           hide_dotfiles = false,
-					hide_gitignored = false,
-				},
-			},
-		})
+          hide_gitignored = false,
+        },
+      },
+    })
 
     -- Configuración de teclas
     vim.keymap.set('n', '<leader>m', ':Neotree reveal left<CR>', {})
