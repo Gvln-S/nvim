@@ -15,14 +15,12 @@ return {
     lazy = false,
     opts = {
       ensure_installed = {
-        "clangd",
         "jdtls",
         "lua_ls",
         "ts_ls",
         "html",
         "cssls",
         "kotlin_language_server",
-        "lemminx",
         "gradle_ls",
         "bashls",
         "marksman",
@@ -86,7 +84,9 @@ return {
         },
       }))
 
-      lspconfig.clangd.setup(vim.tbl_deep_extend("force", default_config, {
+      local is_windows = vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1
+      local cmd = {}
+      if is_windows then
         cmd = {
           "clangd",
           "--background-index",
@@ -95,18 +95,27 @@ return {
           "--completion-style=detailed",
           "--function-arg-placeholders",
           "--fallback-style=llvm",
-          "--query-driver=C:/ProgramData/mingw64/mingw64/bin/g++*",
-        },
+          "--query-driver=C:/ProgramData/mingw64/mingw64/bin/clangd",
+        }
+      else
+        cmd = {
+          "clangd",
+          "--background-index",
+          "--clang-tidy",
+          "--header-insertion=iwyu",
+          "--completion-style=detailed",
+          "--function-arg-placeholders",
+          "--fallback-style=llvm",
+          "--query-driver=/usr/bin/clangd*"
+        }
+      end
+
+      -- lspconfig.clangd.setup{}
+      lspconfig.clangd.setup(vim.tbl_deep_extend("force", default_config, {
+        cmd = cmd,
         capabilities = vim.tbl_deep_extend("force", capabilities, {
           offsetEncoding = { "utf-16" },
         }),
-      }))
-
-      lspconfig.kotlin_language_server.setup(vim.tbl_deep_extend("force", default_config, {
-        root_dir = function(fname)
-          return lspconfig.util.root_pattern('build.gradle.kts', 'settings.gradle.kts', '.git')(fname)
-            or vim.fn.getcwd()
-        end,
       }))
 
       lspconfig.ts_ls.setup(default_config)
