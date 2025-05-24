@@ -21,7 +21,6 @@ return {
         "html",
         "cssls",
         "kotlin_language_server",
-        "gradle_ls",
         "bashls",
         "marksman",
         "pyright",
@@ -41,23 +40,23 @@ return {
       "mfussenegger/nvim-jdtls",
     },
     config = function()
-			local lspconfig = require("lspconfig")
-			local capabilities = require('cmp_nvim_lsp').default_capabilities()
+                        local lspconfig = require("lspconfig")
+                        local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-			vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-			vim.lsp.handlers.hover, {
-				border = "rounded"
-			}
-			)
+                        vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+                        vim.lsp.handlers.hover, {
+                                border = "rounded"
+                        }
+                        )
 
       local default_config = {
         capabilities = capabilities,
         on_attach = function(client, bufnr)
 
-					local opts = { noremap = true, silent = true, buffer = bufnr }
-					vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-					vim.keymap.set("n", "<leader>df", vim.lsp.buf.definition, opts)
-					vim.keymap.set("n", "<leader>rf", vim.lsp.buf.references, opts)
+                                        local opts = { noremap = true, silent = true, buffer = bufnr }
+                                        vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+                                        vim.keymap.set("n", "<leader>df", vim.lsp.buf.definition, opts)
+                                        vim.keymap.set("n", "<leader>rf", vim.lsp.buf.references, opts)
           vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
           vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
           vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts)
@@ -106,7 +105,7 @@ return {
           "--completion-style=detailed",
           "--function-arg-placeholders",
           "--fallback-style=llvm",
-          "--query-driver=/usr/bin/clangd*"
+          "--query-driver=C:/ProgramData/mingw64/mingw64/bin/*",
         }
       end
 
@@ -122,7 +121,6 @@ return {
       lspconfig.html.setup(default_config)
       lspconfig.cssls.setup(default_config)
       lspconfig.lemminx.setup(default_config)
-      lspconfig.gradle_ls.setup(default_config)
       lspconfig.pyright.setup(default_config)
       lspconfig.bashls.setup(default_config)
       lspconfig.marksman.setup(default_config)

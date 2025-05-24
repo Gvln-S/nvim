@@ -9,13 +9,14 @@ return {
       vim.keymap.set('n', '<leader>fg', ":Flog<CR>", { noremap = true, silent = true })
     end
   },
-  'lewis6991/gitsigns.nvim',
-  config = function()
-    require('gitsingns').setup()
+  -- {
+  -- 'lewis6991/gitsigns.nvim',
+  -- config = function()
 
-    vim.keymap.set('n', '<leader>gc', ':Gitsigns preview_hunk<CR>', {})
-    vim.keymap.set('n', '<leader>gt', ':Gitsigns toggle_current_line_blame<CR>', {})
-  end,
+  --   vim.keymap.set('n', '<leader>gc', ':Gitsigns preview_hunk<CR>', {})
+  --   vim.keymap.set('n', '<leader>gt', ':Gitsigns toggle_current_line_blame<CR>', {})
+  -- end,
+  -- },
   {
     'f-person/git-blame.nvim',
     opts = {
