@@ -87,14 +87,14 @@ return {
       local cmd = {}
       if is_windows then
         cmd = {
-          "clangd",
+          "C:/msys64/mingw64/bin/clangd.exe",
           "--background-index",
           "--clang-tidy",
           "--header-insertion=iwyu",
           "--completion-style=detailed",
           "--function-arg-placeholders",
           "--fallback-style=llvm",
-          "--query-driver=C:/ProgramData/mingw64/mingw64/bin/clangd",
+          "--query-driver=C:/msys64/mingw64/bin/clang++.exe",
         }
       else
         cmd = {
@@ -105,7 +105,7 @@ return {
           "--completion-style=detailed",
           "--function-arg-placeholders",
           "--fallback-style=llvm",
-          "--query-driver=C:/ProgramData/mingw64/mingw64/bin/*",
+          "--query-driver=/usr/bin/*",
         }
       end
 
