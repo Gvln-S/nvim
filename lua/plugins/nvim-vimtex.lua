@@ -10,4 +10,6 @@ if is_windows then
       vim.g.vimtex_compiler_method = "latexmk"
     end,
   }
+else
+  return {}
 end
