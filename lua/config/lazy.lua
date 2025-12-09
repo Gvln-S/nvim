@@ -27,6 +27,24 @@ require("lazy").setup({
   checker = { enabled = true },
 })
 
+local function make_lazy_transparent()
+  vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+  vim.api.nvim_set_hl(0, "FloatBorder", { bg = "none" })
+
+  vim.api.nvim_set_hl(0, "LazyNormal", { bg = "none" })
+  vim.api.nvim_set_hl(0, "LazyBorder", { bg = "none" })
+  vim.api.nvim_set_hl(0, "LazyH1", { bg = "none" })
+  vim.api.nvim_set_hl(0, "LazyH2", { bg = "none" })
+  vim.api.nvim_set_hl(0, "LazyButton", { bg = "none" })
+  vim.api.nvim_set_hl(0, "LazyButtonActive", { bg = "none" })
+end
+
+make_lazy_transparent()
+
+vim.api.nvim_create_autocmd("ColorScheme", {
+  callback = make_lazy_transparent,
+})
+
 require("core.keymaps")
 require("core.vim-options")
 require("mason").setup()
