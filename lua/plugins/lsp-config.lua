@@ -8,15 +8,13 @@ return {
       "hrsh7th/cmp-nvim-lsp",
     },
     config = function()
-      require("mason").setup({ 
-        ui = { border = "rounded" } 
-      })
+      require("mason").setup({ ui = { border = "rounded" } })
 
       local lspconfig = require("lspconfig")
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
       vim.diagnostic.config({
-        virtual_text = { 
+        virtual_text = {
           prefix = '●',
           source = "always",
         },
@@ -44,12 +42,14 @@ return {
           vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts)
           vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
           vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
+
           local client = vim.lsp.get_client_by_id(ev.data.client_id)
           if client and client.name ~= "null-ls" then
             client.server_capabilities.documentFormattingProvider = false
           end
         end,
       })
+
       require("mason-lspconfig").setup({
         ensure_installed = { 
           "jdtls", "lua_ls", "ts_ls", "html", "cssls", 
@@ -63,6 +63,7 @@ return {
               lspconfig[server_name].setup({ capabilities = capabilities })
             end
           end,
+
           ["clangd"] = function()
             local is_windows = vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1
             local cmd = is_windows and {
@@ -78,12 +79,16 @@ return {
               "clangd",
               "--background-index",
               "--clang-tidy",
-              "--fallback-style=llvm"
+              "--header-insertion=iwyu",
+              "--completion-style=detailed",
+              "--function-arg-placeholders",
+              "--fallback-style=llvm",
+              "--query-driver=/usr/bin/*"
             }
 
             lspconfig.clangd.setup({
               cmd = cmd,
-              capabilities = capabilities,
+              capabilities = vim.tbl_deep_extend("force", capabilities, { offsetEncoding = { "utf-16" } }),
             })
           end,
         }
