@@ -84,11 +84,6 @@ local config = {
     vim.keymap.set("n", "<leader>ev", jdtls.extract_variable, opts)
     vim.keymap.set("n", "<leader>ec", jdtls.extract_constant, opts)
     vim.keymap.set("v", "<leader>em", [[<ESC><CMD>lua require('jdtls').extract_method(true)<CR>]], opts)
-    vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-    vim.keymap.set("n", "<leader>df", vim.lsp.buf.definition, opts)
-    vim.keymap.set("n", "<leader>rf", vim.lsp.buf.references, opts)
-    vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-    vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
   end,
 }
 

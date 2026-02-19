@@ -23,25 +23,28 @@ return {
         signs = true, underline = true, update_in_insert = false, severity_sort = true,
       })
 
-      local on_attach = function(client, bufnr)
-        local opts = { noremap = true, silent = true, buffer = bufnr }
-        vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-        vim.keymap.set("n", "<leader>df", vim.lsp.buf.definition, opts)
-        vim.keymap.set("n", "<leader>rf", vim.lsp.buf.references, opts)
-        vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
-        vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-        vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts)
-        vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
-        vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
+      vim.api.nvim_create_autocmd('LspAttach', {
+        group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+        callback = function(ev)
+          local opts = { noremap = true, silent = true, buffer = ev.buf }
+          vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+          vim.keymap.set("n", "<leader>df", vim.lsp.buf.definition, opts)
+          vim.keymap.set("n", "<leader>rf", vim.lsp.buf.references, opts)
+          vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
+          vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+          vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts)
+          vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
+          vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
 
-        if client.name ~= "null-ls" then
-          client.server_capabilities.documentFormattingProvider = false
-        end
-      end
+          local client = vim.lsp.get_client_by_id(ev.data.client_id)
+          if client and client.name ~= "null-ls" then
+            client.server_capabilities.documentFormattingProvider = false
+          end
+        end,
+      })
 
       local default_config = {
         capabilities = capabilities,
-        on_attach = on_attach,
       }
 
       require("mason-lspconfig").setup({
