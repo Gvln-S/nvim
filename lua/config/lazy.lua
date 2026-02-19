@@ -30,7 +30,6 @@ require("lazy").setup({
 local function make_lazy_transparent()
   vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
   vim.api.nvim_set_hl(0, "FloatBorder", { bg = "none" })
-
   vim.api.nvim_set_hl(0, "LazyNormal", { bg = "none" })
   vim.api.nvim_set_hl(0, "LazyBorder", { bg = "none" })
   vim.api.nvim_set_hl(0, "LazyH1", { bg = "none" })
@@ -49,6 +48,5 @@ require("core.keymaps")
 require("core.vim-options")
 require("mason").setup()
 
--- use for c++ compiler clang++
 local path = vim.fn.expand('$PATH')
 vim.fn.setenv('PATH', path .. ';C:\\Program Files\\LLVM\\bin')
