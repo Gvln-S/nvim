@@ -2,38 +2,29 @@ return {
   {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
+    event = { "BufReadPost", "BufNewFile" },
     config = function()
-      local config = require('nvim-treesitter.configs')
-      config.setup({
+      local status, treesitter = pcall(require, 'nvim-treesitter.configs')
+      if not status then return end
+      
+      treesitter.setup({
         auto_install = true,
         highlight = {
           enable = true,
-          additional_vim_regex_highlighting = true,
+          additional_vim_regex_highlighting = false,
         },
       })
     end
   },
   {
     'nvim-treesitter/nvim-treesitter-context',
+    event = "BufReadPre",
     config = function()
       require('treesitter-context').setup({
         enable = true,
-        throttle = true,
         max_lines = 1,
-        patterns = {
-          default = {
-            'class',
-            'function',
-            'method',
-          },
-        },
         separator = "─",
       })
-      vim.cmd [[
-      hi TreesitterContextSeparator guifg=#3B4252
-      hi TreesitterContextLineNumber guifg=#4C566A
-      hi TreesitterContextBottom gui=none
-      ]]
     end
   }
 }
