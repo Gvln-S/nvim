@@ -10,18 +10,18 @@ This configuration is designed for **Full Stack Development** (Java, Web, Python
 
 ## Features
 
-- ** Package Management**: Powered by [lazy.nvim](https://github.com/folke/lazy.nvim) for fast startup times.
-- ** LSP Support**: Auto-configured Language Servers for Java, C++, Python, Lua, TypeScript, HTML, CSS, Bash, and more using [Mason](https://github.com/williamboman/mason.nvim).
-- ** Advanced Java Support**: Dedicated `jdtls` setup with debugging, refactoring, and Maven/Gradle support.
-- ** UI & Aesthetics**:
+- **Package Management**: Powered by [lazy.nvim](https://github.com/folke/lazy.nvim) for fast startup times.
+- **LSP Support**: Auto-configured Language Servers for Java, C++, Python, Lua, TypeScript, HTML, CSS, Bash, and more using [Mason](https://github.com/williamboman/mason.nvim).
+- **Advanced Java Support**: Dedicated `jdtls` setup with debugging, refactoring, and Maven/Gradle support.
+- **UI & Aesthetics**:
   - **Theme**: Catppuccin (Transparent background).
   - **Status Line**: Lualine configured with git status and diagnostics.
   - **Dashboard**: Custom startup screen with quick access keys.
   - **File Explorer**: Neo-tree with git integration and icons.
-- ** Navigation**: Telescope for fuzzy finding files, buffers, and text.
-- ** Syntax Highlighting**: Tree-sitter for better syntax highlighting and context.
-- ** Formatting & Linting**: `none-ls` integration for Prettier and StyLua.
-- ** LaTeX**: Windows-optimized setup with VimTex and SumatraPDF support.
+- **Navigation**: Telescope for fuzzy finding files, buffers, and text.
+- **Syntax Highlighting**: Tree-sitter for better syntax highlighting and context.
+- **Formatting & Linting**: `none-ls` integration for Prettier and StyLua.
+- **LaTeX**: Windows-optimized setup with VimTex and SumatraPDF support.
 
 ##  Prerequisites
 
