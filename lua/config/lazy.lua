@@ -46,7 +46,7 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 
 require("core.keymaps")
 require("core.vim-options")
-require("mason").setup()
+-- require("mason").setup()
 
 local path = vim.fn.expand('$PATH')
 vim.fn.setenv('PATH', path .. ';C:\\Program Files\\LLVM\\bin')
