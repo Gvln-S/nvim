@@ -52,9 +52,9 @@ return {
 
       require("mason-lspconfig").setup({
         ensure_installed = { 
-          "jdtls", "lua_ls", "ts_ls", "html", "cssls", 
-          "kotlin_language_server", "bashls", "marksman", 
-          "pyright", "clangd" 
+          "jdtls", "lua_ls", "ts_ls", "html", "cssls",
+          "kotlin_language_server", "bashls", "marksman",
+          "pyright", "clangd", "asm-lsp"
         },
         automatic_installation = true,
         handlers = {
