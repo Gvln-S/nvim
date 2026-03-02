@@ -8,26 +8,21 @@ return {
       "hrsh7th/cmp-nvim-lsp",
     },
     config = function()
+      local is_windows = vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1
+      
       require("mason").setup({ ui = { border = "rounded" } })
 
       local lspconfig = require("lspconfig")
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
       vim.diagnostic.config({
-        virtual_text = {
-          prefix = '●',
-          source = "always",
-        },
-        float = { 
-          source = "always",
-          border = "rounded"
-        },
+        virtual_text = { prefix = '●', source = "always" },
+        float = { source = "always", border = "rounded" },
         signs = true,
         underline = true,
         update_in_insert = false,
         severity_sort = true,
       })
-
       vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
 
       vim.api.nvim_create_autocmd('LspAttach', {
@@ -50,12 +45,18 @@ return {
         end,
       })
 
+      local servers = { 
+        "jdtls", "lua_ls", "ts_ls", "html", "cssls",
+        "kotlin_language_server", "bashls", "marksman",
+        "pyright", "clangd"
+      }
+
+      if not is_windows then
+        table.insert(servers, "asm_lsp")
+      end
+
       require("mason-lspconfig").setup({
-        ensure_installed = { 
-          "jdtls", "lua_ls", "ts_ls", "html", "cssls",
-          "kotlin_language_server", "bashls", "marksman",
-          "pyright", "clangd", "asm-lsp"
-        },
+        ensure_installed = servers,
         automatic_installation = true,
         handlers = {
           function(server_name)
@@ -65,7 +66,6 @@ return {
           end,
 
           ["clangd"] = function()
-            local is_windows = vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1
             local cmd = is_windows and {
               "C:/msys64/mingw64/bin/clangd.exe",
               "--background-index",
@@ -90,6 +90,12 @@ return {
               cmd = cmd,
               capabilities = vim.tbl_deep_extend("force", capabilities, { offsetEncoding = { "utf-16" } }),
             })
+          end,
+
+          ["asm_lsp"] = function()
+            if not is_windows then
+              lspconfig.asm_lsp.setup({ capabilities = capabilities })
+            end
           end,
         }
       })
