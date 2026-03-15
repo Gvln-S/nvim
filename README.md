@@ -144,4 +144,7 @@ The configuration is organized into modules:
 
 Feel free to fork this repository and add your own tweaks to personalize it to your tastes; contributions and customizations are always welcome!
 
-![photo_one](img/github_one.png)
+| img 1 |
+| :---: | 
+| ![photo_one](img/github_one.png) |
+
