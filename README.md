@@ -1,7 +1,5 @@
 # Gvln-S Neovim Configuration
 
-![photo_one](img/github_one.png)
-
 A comprehensive, modular, and performance-oriented **Neovim** configuration built with **Lazy.nvim**.
 
 This configuration is designed for **Full Stack Development** (Java, Web, Python, Low-Level Programming) and **Systems Programming** (C++, Bash), robust LSP integration via **Mason**, and seamless Git integration.
@@ -147,3 +145,4 @@ The configuration is organized into modules:
 
 Feel free to fork this repository and add your own tweaks to personalize it to your tastes; contributions and customizations are always welcome!
 
+![photo_one](img/github_one.png)
